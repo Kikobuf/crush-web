@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import { DirectoryPicker } from "./DirectoryPicker";
 
 export function WorkspacePicker({
   recent,
@@ -12,6 +13,7 @@ export function WorkspacePicker({
   error: string | null;
 }) {
   const [path, setPath] = useState("");
+  const [browsing, setBrowsing] = useState(false);
 
   return (
     <div className="flex h-full flex-1 flex-col items-center justify-center px-4">
@@ -38,12 +40,30 @@ export function WorkspacePicker({
             className="flex-1 rounded border border-stage-600 bg-stage-950 px-3 py-2 text-sm text-ink-100 outline-none focus:border-glam"
           />
           <button
+            type="button"
+            onClick={() => setBrowsing(true)}
+            className="shrink-0 rounded border border-stage-600 px-3 py-2 text-sm text-ink-300 hover:bg-stage-800 hover:text-ink-100"
+          >
+            Browse…
+          </button>
+          <button
             type="submit"
-            className="rounded bg-glam px-4 py-2 text-sm font-medium text-stage-950 hover:bg-glam-soft"
+            className="shrink-0 rounded bg-glam px-4 py-2 text-sm font-medium text-stage-950 hover:bg-glam-soft"
           >
             Open
           </button>
         </form>
+
+        {browsing && (
+          <DirectoryPicker
+            initialPath={path || undefined}
+            onClose={() => setBrowsing(false)}
+            onSelect={(picked) => {
+              setPath(picked);
+              setBrowsing(false);
+            }}
+          />
+        )}
 
         {error && <p className="mt-3 text-sm text-red-400">{error}</p>}
 
