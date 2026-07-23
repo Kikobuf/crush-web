@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+}
+
+body {
+  @apply bg-stage-950 text-ink-100;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-thumb {
+  @apply rounded bg-stage-700;
+}
+::-webkit-scrollbar-track {
+  @apply bg-transparent;
+}
+
+/* Respect reduced-motion for the pulseheart signature element. */
+@media (prefers-reduced-motion: reduce) {
+  .animate-pulseheart {
+    animation: none;
+  }
+}
